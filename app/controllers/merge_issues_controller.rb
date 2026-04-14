@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MergeTicketsController < ApplicationController
+class MergeIssuesController < ApplicationController
   before_action :find_issue
   before_action :authorize
 
@@ -52,7 +52,7 @@ class MergeTicketsController < ApplicationController
   end
 
   def authorize
-    unless User.current.allowed_to?(:merge_issues, @project)
+    unless User.current.allowed_to?(:merge_issues, @issue.project)
       deny_access
     end
   end
@@ -76,6 +76,7 @@ class MergeTicketsController < ApplicationController
       NOTE
       journal = destination.init_journal(author, note_text)
       journal.save!
+      journal.update_column(:created_on, source.created_on)
     end
 
     # 2. Move journals (comments) from source → destination
