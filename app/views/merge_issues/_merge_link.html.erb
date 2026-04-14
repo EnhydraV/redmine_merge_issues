@@ -1,0 +1,50 @@
+<%# app/views/merge_issues/_merge_link.html.erb %>
+<%# Rendered via the view hook — context contains :issue and :project %>
+<% issue   = context[:issue]   rescue nil %>
+<% project = context[:project] rescue nil %>
+
+<% if issue && project && User.current.allowed_to?(:merge_issues, project) %>
+  <p class="merge-issue-link-container">
+    <%= link_to(
+          content_tag(:span, l(:label_merge_issue)),
+          new_issue_merge_path(issue),
+          id:    'merge-issue-link',
+          class: 'merge-issue-link',
+          remote: true,
+          method: :get,
+          title: l(:label_merge_issue)
+        ) %>
+  </p>
+
+  <style>
+    /* --- Merge link on the issue page --- */
+    .merge-issue-link-container {
+      display: inline-block;
+      margin: 0;
+    }
+    a.merge-issue-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4f46e5;
+      text-decoration: none;
+      padding: 0.25rem 0.65rem;
+      border: 1.5px solid #c7d2fe;
+      border-radius: 6px;
+      background: #eef2ff;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      letter-spacing: 0.01em;
+    }
+    a.merge-issue-link::before {
+      content: "⊕";
+      font-size: 0.9em;
+    }
+    a.merge-issue-link:hover {
+      background: #e0e7ff;
+      border-color: #a5b4fc;
+      color: #3730a3;
+    }
+  </style>
+<% end %>

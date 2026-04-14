@@ -1,0 +1,11 @@
+<%# app/views/merge_issues/new.js.erb %>
+<%# Appends the modal HTML into the DOM when requested via JS %>
+(function() {
+  // Remove any existing modal
+  var existing = document.getElementById('merge-modal-overlay');
+  if (existing) existing.remove();
+
+  var div = document.createElement('div');
+  div.innerHTML = <%= raw(render(partial: 'merge_issues/modal').to_json) %>;
+  document.body.appendChild(div.firstElementChild);
+})();
