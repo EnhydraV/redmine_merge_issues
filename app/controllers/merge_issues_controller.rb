@@ -74,7 +74,8 @@ class MergeIssuesController < ApplicationController
 
         #{source.description}
       NOTE
-      journal = destination.init_journal(author, note_text)
+      journal = Journal.new(journalized: destination, user: author, notes: note_text)
+      journal.notify = false
       journal.save!
       journal.update_column(:created_on, source.created_on)
     end
@@ -127,7 +128,8 @@ class MergeIssuesController < ApplicationController
     # 9. Add a journal note to destination referencing the merge
     merge_note = l(:label_merge_note, source_id: source.id, source_subject: source.subject,
                                       user: User.current.name, date: format_date(Date.today))
-    destination.init_journal(User.current, merge_note)
+    journal = destination.init_journal(User.current, merge_note)
+    journal.notify = false
     destination.save!
 
     # 10. Destroy source issue (skips callbacks that might be slow; adjust if needed)
