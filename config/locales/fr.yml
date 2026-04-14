@@ -7,5 +7,5 @@ fr:
   error_merge_same_issue: "La demande de destination doit être différente de la demande source."
   error_merge_destination_not_found: "La demande de destination est introuvable."
   error_merge_not_allowed_on_destination: "Vous n'avez pas la permission de fusionner des demandes dans le projet de la demande de destination."
-  error_merge_failed: "La fusion a échoué : %{message}"
+  error_merge_failed: "La fusion a échoué. Consultez les logs pour plus de détails."
   permission_merge_issues: "Fusionner des demandes"

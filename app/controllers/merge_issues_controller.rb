@@ -17,11 +17,11 @@ class MergeIssuesController < ApplicationController
   def create
     destination_id = params[:destination_issue_id].to_s.gsub(/\A#/, '').strip.to_i
 
-    if destination_id == @issue.id
+    if destination_id == 0 || destination_id == @issue.id
       return redirect_back_with_error(l(:error_merge_same_issue))
     end
 
-    @destination = Issue.find_by(id: destination_id)
+    @destination = Issue.visible.find_by(id: destination_id)
 
     unless @destination
       return redirect_back_with_error(l(:error_merge_destination_not_found))
@@ -38,7 +38,8 @@ class MergeIssuesController < ApplicationController
       flash[:notice] = l(:notice_merge_success, source: @issue.id, destination: @destination.id)
       redirect_to issue_path(@destination)
     rescue StandardError => e
-      redirect_back_with_error(l(:error_merge_failed, message: e.message))
+      Rails.logger.error("[MergeIssues] Merge failed: #{e.message}\n#{e.backtrace.first(5).join("\n")}")
+      redirect_back_with_error(l(:error_merge_failed))
     end
   end
 

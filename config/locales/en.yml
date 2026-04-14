@@ -7,5 +7,5 @@ en:
   error_merge_same_issue: "The destination issue must be different from the source issue."
   error_merge_destination_not_found: "The destination issue could not be found."
   error_merge_not_allowed_on_destination: "You do not have permission to merge issues in the destination issue's project."
-  error_merge_failed: "Merge failed: %{message}"
+  error_merge_failed: "Merge failed. Check the logs for details."
   permission_merge_issues: "Merge issues"
