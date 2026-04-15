@@ -126,14 +126,19 @@ class MergeIssuesController < ApplicationController
       destination.add_watcher(user) unless destination.watched_by?(user)
     end
 
-    # 9. Add a journal note to destination referencing the merge
+    # 9. Escalate priority to the highest of source and destination
+    if source.priority.position > destination.priority.position
+      destination.priority = source.priority
+    end
+
+    # 10. Add a journal note to destination referencing the merge
     merge_note = l(:label_merge_note, source_id: source.id, source_subject: source.subject,
                                       user: User.current.name, date: format_date(Date.today))
     journal = destination.init_journal(User.current, merge_note)
     journal.notify = false
     destination.save!
 
-    # 10. Destroy source issue (skips callbacks that might be slow; adjust if needed)
+    # 11. Destroy source issue (skips callbacks that might be slow; adjust if needed)
     source.destroy
   end
 end
