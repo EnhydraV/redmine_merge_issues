@@ -121,24 +121,29 @@ class MergeIssuesController < ApplicationController
     IssueRelation.where(issue_from_id: source.id).update_all(issue_from_id: destination.id)
     IssueRelation.where(issue_to_id:   source.id).update_all(issue_to_id:   destination.id)
 
-    # 8. Move watchers
+    # 8. Move changesets (repository revisions)
+    new_changesets = source.changesets - destination.changesets
+    destination.changesets << new_changesets if new_changesets.any?
+    source.changesets.clear
+
+    # 9. Move watchers
     source.watcher_users.each do |user|
       destination.add_watcher(user) unless destination.watched_by?(user)
     end
 
-    # 9. Escalate priority to the highest of source and destination
+    # 10. Escalate priority to the highest of source and destination
     if source.priority.position > destination.priority.position
       destination.priority = source.priority
     end
 
-    # 10. Add a journal note to destination referencing the merge
+    # 11. Add a journal note to destination referencing the merge
     merge_note = l(:label_merge_note, source_id: source.id, source_subject: source.subject,
                                       user: User.current.name, date: format_date(Date.today))
     journal = destination.init_journal(User.current, merge_note)
     journal.notify = false
     destination.save!
 
-    # 11. Destroy source issue (skips callbacks that might be slow; adjust if needed)
+    # 12. Destroy source issue (skips callbacks that might be slow; adjust if needed)
     source.destroy
   end
 end
