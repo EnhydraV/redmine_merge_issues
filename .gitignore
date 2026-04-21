@@ -1,5 +1,9 @@
 ### idea
 .idea
+
+### claude
+.claude
+
 ### Rails template
 *.rbc
 capybara-*.html

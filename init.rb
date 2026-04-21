@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_merge_issues do
   name        'Merge Issues'
   author      'Vincent Vanwaelscappel'
   description 'Allows merging issues: moves all content from a source issue into a destination issue, then deletes the source.'
-  version     '0.0.2'
+  version     '0.0.3'
   url         'https://github.com/EnhydraV/redmine_merge_issues'
   author_url  'https://github.com/EnhydraV'
 

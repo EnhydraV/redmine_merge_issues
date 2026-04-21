@@ -1,0 +1,8 @@
+<%# Rendu uniquement si l'utilisateur a la permission de fusionner %>
+<% if User.current.allowed_to?(:merge_issues, issue.project) %>
+  <template id="merge-drdn-item">
+    <%= link_to sprite_icon('bullet-go', l(:button_merge)), new_issue_merge_path(issue),
+                class: 'icon icon-bullet-go' %>
+  </template>
+  <%= javascript_include_tag 'merge_issues', plugin: 'redmine_merge_issues' %>
+<% end %>

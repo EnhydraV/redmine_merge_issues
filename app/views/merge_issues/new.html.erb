@@ -1,0 +1,27 @@
+<%# app/views/merge_issues/new.html.erb %>
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'merge_issues', plugin: 'redmine_merge_issues' %>
+<% end %>
+
+<div class="contextual">
+  <%= link_to l(:button_back), issue_path(@issue), :class => 'icon icon-back' %>
+</div>
+
+<h2><%= l(:label_merge_issue) %> #<%= @issue.id %> — <%= @issue.subject %></h2>
+
+<%= form_tag(issue_merge_path(@issue), method: :post) do %>
+  <div class="box tabular">
+    <p>
+      <label style="white-space: nowrap; width: auto;margin-right: 30px" for="destination_issue_id"><%= l(:label_merge_issue) %></label>
+      <%= text_field_tag :destination_issue_id, '',
+          id: 'destination_issue_id',
+          placeholder: '123',
+          size: 20,
+          style: 'margin-left: auto',
+          required: true,
+          autofocus: true %>
+    </p>
+  </div>
+  <%= submit_tag l(:button_merge), :class => 'button-positive' %>
+  <%= link_to l(:button_cancel), issue_path(@issue), :class => 'button' %>
+<% end %>
