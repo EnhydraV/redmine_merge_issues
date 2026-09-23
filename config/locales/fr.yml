@@ -17,4 +17,7 @@ fr:
   error_merge_other_not_found: "La demande saisie est introuvable."
   error_merge_not_allowed_on_destination: "Vous n'avez pas la permission de fusionner des demandes dans le projet de la demande de destination."
   error_merge_failed: "La fusion a échoué. Consultez les logs pour plus de détails."
+  error_merge_issue_failed: "La demande #%{id} n'a pas pu être fusionnée : %{message}"
+  error_merge_parent_update_failed: "La demande parente de #%{id} n'a pas pu être mise à jour : %{message}"
+  error_merge_too_many_issues: "Trop de demandes sélectionnées : %{max} au maximum peuvent être fusionnées en une seule fois."
   permission_merge_issues: "Fusionner des demandes"

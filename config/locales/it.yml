@@ -17,4 +17,7 @@ it:
   error_merge_other_not_found: "La segnalazione indicata non è stata trovata."
   error_merge_not_allowed_on_destination: "Non hai il permesso di unire segnalazioni nel progetto della segnalazione di destinazione."
   error_merge_failed: "Unione fallita. Consulta i log per maggiori dettagli."
+  error_merge_issue_failed: "Non è stato possibile unire la segnalazione #%{id}: %{message}"
+  error_merge_parent_update_failed: "Non è stato possibile aggiornare la segnalazione padre di #%{id}: %{message}"
+  error_merge_too_many_issues: "Troppe segnalazioni selezionate: è possibile unirne al massimo %{max} alla volta."
   permission_merge_issues: "Unire segnalazioni"
