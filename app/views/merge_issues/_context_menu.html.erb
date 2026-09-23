@@ -8,8 +8,10 @@
                           new_issue_merge_path(issues.first),
                           class: 'icon icon-bullet-go', disabled: !merge_allowed %>
   <% else %>
+    <%# `back` is where the issue list was left; the merge screen sends the
+        user back there on Cancel instead of to the unfiltered list. %>
     <%= context_menu_link sprite_icon('bullet-go', l(:button_merge)),
-                          new_merge_issues_path(ids: issues.map(&:id)),
+                          new_merge_issues_path(ids: issues.map(&:id), back_url: back),
                           class: 'icon icon-bullet-go', disabled: !merge_allowed %>
   <% end %>
 </li>

@@ -1,6 +1,8 @@
 <%# app/views/merge_issues/new_multiple.html.erb %>
+<% html_title l(:label_merge_multiple_screen_title) %>
+
 <div class="contextual">
-  <%= link_to l(:button_back), issues_path, :class => 'icon icon-back' %>
+  <%= link_to l(:button_back), @back_url, :class => 'icon icon-back' %>
 </div>
 
 <h2><%= l(:label_merge_multiple_screen_title) %></h2>
@@ -9,6 +11,7 @@
   <% @issues.each do |issue| %>
     <%= hidden_field_tag 'ids[]', issue.id, id: nil %>
   <% end %>
+  <%= hidden_field_tag 'back_url', @back_url, id: nil %>
   <div class="box">
     <p><%= l(:label_merge_multiple_hint) %></p>
     <% @issues.each do |issue| %>
@@ -19,5 +22,5 @@
     <% end %>
   </div>
   <%= submit_tag l(:button_merge), :class => 'button-positive' %>
-  <%= link_to l(:button_cancel), issues_path, :class => 'button' %>
+  <%= link_to l(:button_cancel), @back_url, :class => 'button' %>
 <% end %>
